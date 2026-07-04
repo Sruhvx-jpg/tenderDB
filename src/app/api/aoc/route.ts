@@ -57,7 +57,7 @@ export async function GET(request: Request) {
         partition_id
       FROM aoc_tenders 
       ${whereClause} 
-      ORDER BY aoc_date DESC NULLS LAST, year DESC
+      ORDER BY rowid DESC
       LIMIT ? OFFSET ?
     `;
 

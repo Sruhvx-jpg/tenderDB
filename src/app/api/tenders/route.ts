@@ -96,7 +96,7 @@ export async function GET(request: Request) {
       FROM tenders 
       ${joinClause}
       ${whereClause} 
-      ORDER BY tenders.e_published_date DESC NULLS LAST, tenders.scraped_at DESC NULLS LAST
+      ORDER BY tenders.rowid DESC
       LIMIT ? OFFSET ?
     `;
 
