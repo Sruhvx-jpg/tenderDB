@@ -1,6 +1,6 @@
 import { createClient } from '@libsql/client';
 
-const url = process.env.DATABASE_URL || 'libsql://tenders-copy-sruhvx.aws-ap-south-1.turso.io';
+const url = process.env.DATABASE_URL!;
 const authToken = process.env.DATABASE_AUTH_TOKEN;
 
 // Initialize the LibSQL client

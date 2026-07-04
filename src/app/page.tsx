@@ -314,7 +314,7 @@ export default async function DashboardPage() {
               <p
                 className="text-sm leading-relaxed mb-8 text-[#2D3A1F]/60"
               >
-                Connect your LLM agents directly to the TenderDB database. Query, explore, and analyze procurement records using Model Context Protocol.
+                Connect your LLM agents directly to the shareOSINT.DB database. Query, explore, and analyze procurement records using Model Context Protocol.
               </p>
             </div>
             <div>

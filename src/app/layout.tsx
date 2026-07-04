@@ -19,7 +19,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "TenderDB — Procurement Analytics Platform",
+  title: "shareOSINT.DB — Procurement Intelligence Platform",
   description: "High-performance exploration of millions of active tenders and contract awards.",
 };
 
@@ -58,7 +58,7 @@ export default function RootLayout({
                     <Database className="h-5 w-5 text-[#FAF8F2]" />
                   </div>
                   <span className="font-bold text-lg tracking-tight text-[#2D3A1F]" style={{ fontFamily: "var(--font-fraunces)" }}>
-                    Tender<span className="text-[#C4AD6A]">DB</span>
+                    shareOSINT<span className="text-[#C4AD6A]">.DB</span>
                   </span>
                 </Link>
                 
@@ -92,7 +92,7 @@ export default function RootLayout({
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2 bg-[#EDE8DA] border border-[#D4CFC3] px-3.5 py-1.5 rounded-full text-xs font-medium text-[#2D3A1F]/80">
                   <span className="h-2 w-2 rounded-full bg-emerald-600 animate-pulse"></span>
-                  Local DB Connected
+                  Database Connected
                 </div>
               </div>
             </div>
@@ -105,7 +105,7 @@ export default function RootLayout({
 
         <footer className="border-t border-[#D4CFC3] py-10 text-center text-xs text-[#2D3A1F]/40">
           <div className="mx-auto max-w-6xl px-6 sm:px-8 lg:px-12 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p>© {new Date().getFullYear()} TenderDB. Powered by Next.js & DuckDB.</p>
+            <p>© {new Date().getFullYear()} shareOSINT.DB. Powered by Next.js & LibSQL.</p>
             <div className="flex gap-6 text-[10px] tracking-[0.15em] uppercase">
               <Link href="/tenders" className="hover:text-[#2D3A1F] transition-colors">Tenders</Link>
               <Link href="/aoc" className="hover:text-[#2D3A1F] transition-colors">Contract Awards</Link>
