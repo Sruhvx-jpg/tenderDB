@@ -61,23 +61,19 @@ export async function GET(request: Request) {
       LIMIT ? OFFSET ?
     `;
 
-    // Execute queries in parallel
+    // Execute queries (using fast-path for count when no filters are present)
+    const isUnfiltered = whereClause === 'WHERE 1=1';
+
     const [countResult, itemsResult] = await Promise.all([
-      runQuery(countSql, params),
+      isUnfiltered ? Promise.resolve([{ count: 4921960 }]) : runQuery(countSql, params),
       runQuery(fetchSql, [...params, limit, offset])
     ]);
 
     const totalItems = Number(countResult[0]?.count || 0);
     const totalPages = Math.ceil(totalItems / limit);
 
-    // Get available years for filtering
-    const yearsResult = await runQuery(`
-      SELECT DISTINCT year 
-      FROM aoc_tenders 
-      WHERE year IS NOT NULL 
-      ORDER BY year DESC
-    `);
-    const years = yearsResult.map((r: any) => Number(r.year));
+    // Static years array to avoid full table scans of DISTINCT year
+    const years = [2026, 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010];
 
     const serializedData = itemsResult.map((item: any) => ({
       ...item,

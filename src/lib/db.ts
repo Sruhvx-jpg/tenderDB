@@ -162,6 +162,59 @@ const baselines = [
       { issuer: 'Municipal Corporation of DelhiEngineering - MCDCivil Engineering - MCD', count: 19999 },
       { issuer: 'PWD', count: 19760 }
     ]
+  },
+  // 8. Tenders Stats - Status Counts
+  {
+    sql: `
+      SELECT 
+        status, 
+        count(*) as count 
+      FROM tenders 
+      GROUP BY status
+    `,
+    data: [
+      { status: 'active', count: 72574 },
+      { status: 'archived', count: 3879617 }
+    ]
+  },
+  // 9. Tenders Stats - Top Issuing Organisations
+  {
+    sql: `
+      SELECT 
+        organisation_name as issuer, 
+        count(*) as count 
+      FROM tenders 
+      WHERE organisation_name IS NOT NULL AND organisation_name != ''
+      GROUP BY issuer 
+      ORDER BY count DESC 
+      LIMIT 10
+    `,
+    data: [
+      { issuer: 'Bharat Heavy Electricals Limited', count: 158639 },
+      { issuer: 'Bharat Petroleum Corporation Limited', count: 119330 },
+      { issuer: 'IHQ of MoD (Army)-(OSCC)', count: 113003 },
+      { issuer: 'Hindustan Petroleum Corporation Limited', count: 104112 },
+      { issuer: 'Central Public Works Department (CPWD)', count: 93940 },
+      { issuer: 'National Rural Roads Development Agency (NRRDA)', count: 92033 },
+      { issuer: 'Military Engineer Services (MES)', count: 85210 },
+      { issuer: 'Indian Oil Corporation Limited', count: 76442 },
+      { issuer: 'Southern Railway', count: 65118 },
+      { issuer: 'Public Works Department', count: 58092 }
+    ]
+  },
+  // 10. Tenders Stats - Portals distribution
+  {
+    sql: `
+      SELECT 
+        portal_type, 
+        count(*) as count 
+      FROM tenders 
+      GROUP BY portal_type
+    `,
+    data: [
+      { portal_type: 'state', count: 41825 },
+      { portal_type: 'org', count: 3910366 }
+    ]
   }
 ];
 

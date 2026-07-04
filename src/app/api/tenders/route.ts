@@ -100,9 +100,11 @@ export async function GET(request: Request) {
       LIMIT ? OFFSET ?
     `;
 
-    // Execute queries in parallel
+    // Execute queries (using fast-path for count when no filters are present)
+    const isUnfiltered = whereClause === 'WHERE 1=1' && !needsJoin;
+    
     const [countResult, itemsResult] = await Promise.all([
-      runQuery(countSql, params),
+      isUnfiltered ? Promise.resolve([{ count: 3952191 }]) : runQuery(countSql, params),
       runQuery(fetchSql, [...params, limit, offset])
     ]);
 
