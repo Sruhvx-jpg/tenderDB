@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     const search = searchParams.get('search')?.trim() || '';
     const status = searchParams.get('status')?.trim() || '';
     const portal = searchParams.get('portal')?.trim() || '';
-    const organisation = searchParams.get('organisation')?.trim() || '';
+    const organisation = (searchParams.get('org') || searchParams.get('organisation'))?.trim() || '';
     
     // EMD, Category, and Type filters
     const emdMin = searchParams.get('emd_min')?.trim() || '';
@@ -37,8 +37,8 @@ export async function GET(request: Request) {
     }
 
     if (organisation) {
-      whereClause += ' AND tenders.organisation_name = ?';
-      params.push(organisation);
+      whereClause += ' AND tenders.organisation_name LIKE ?';
+      params.push(`%${organisation}%`);
     }
 
     if (search) {

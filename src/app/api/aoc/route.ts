@@ -25,8 +25,8 @@ export async function GET(request: Request) {
     }
 
     if (org) {
-      whereClause += ' AND org_name = ?';
-      params.push(org);
+      whereClause += ' AND org_name LIKE ?';
+      params.push(`%${org}%`);
     }
 
     if (search) {
