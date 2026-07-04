@@ -250,9 +250,9 @@ export default function AocExplorerPage() {
       {/* Filter and Search Panel */}
       <div className="bg-[#E8E2D0] border border-[#CDD2C9] rounded-xl p-5 shadow-sm">
         <form onSubmit={handleSearchSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div className="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center">
             {/* Search Input */}
-            <div className="lg:col-span-5 relative">
+            <div className="flex-1 min-w-[240px] relative">
               <input
                 type="text"
                 placeholder="Search awards by title, tender ID, reference number..."
@@ -264,10 +264,10 @@ export default function AocExplorerPage() {
             </div>
 
             {/* Organisation Filter Input */}
-            <div className="lg:col-span-3 relative">
+            <div className="w-full lg:w-[220px] relative shrink-0">
               <input
                 type="text"
-                placeholder="Filter by issuing organisation..."
+                placeholder="Filter by organisation..."
                 value={orgInput}
                 onChange={(e) => setOrgInput(e.target.value)}
                 className="w-full bg-[#F4F1E8] border border-[#CDD2C9] rounded-lg pl-9 pr-4 py-2.5 text-sm text-[#2D3A1F] placeholder-[#2D3A1F]/50 focus:outline-none focus:border-[#B8A678] focus:ring-1 focus:ring-[#B8A678]/30 transition-all font-semibold"
@@ -276,14 +276,14 @@ export default function AocExplorerPage() {
             </div>
 
             {/* Year Filter */}
-            <div className="lg:col-span-2">
+            <div className="w-full lg:w-[110px] shrink-0">
               <select
                 value={year}
                 onChange={(e) => {
                   setYear(e.target.value);
                   setPage(1);
                 }}
-                className="w-full bg-[#F4F1E8] border border-[#CDD2C9] rounded-lg px-3 py-2.5 text-sm text-[#2D3A1F] focus:outline-none focus:border-[#B8A678] transition-all font-semibold"
+                className="w-full bg-[#F4F1E8] border border-[#CDD2C9] rounded-lg px-2 py-2.5 text-sm text-[#2D3A1F] focus:outline-none focus:border-[#B8A678] transition-all font-semibold"
               >
                 <option value="">All Years</option>
                 {years.map(y => (
@@ -293,23 +293,26 @@ export default function AocExplorerPage() {
             </div>
 
             {/* Portal Type Filter */}
-            <div className="lg:col-span-2 flex gap-2">
+            <div className="w-full lg:w-[110px] shrink-0">
               <select
                 value={portal}
                 onChange={(e) => {
                   setPortal(e.target.value);
                   setPage(1);
                 }}
-                className="flex-1 bg-[#F4F1E8] border border-[#CDD2C9] rounded-lg px-3 py-2.5 text-sm text-[#2D3A1F] focus:outline-none focus:border-[#B8A678] transition-all font-semibold"
+                className="w-full bg-[#F4F1E8] border border-[#CDD2C9] rounded-lg px-2.5 py-2.5 text-sm text-[#2D3A1F] focus:outline-none focus:border-[#B8A678] transition-all font-semibold"
               >
-                <option value="">All Portals</option>
+                <option value="">Portals</option>
                 <option value="org">org</option>
                 <option value="state">state</option>
               </select>
-              
+            </div>
+
+            {/* Actions */}
+            <div className="flex gap-2 shrink-0">
               <button
                 type="submit"
-                className="bg-[#2D3A1F] hover:bg-[#2D3A1F]/90 text-[#F4F1E8] rounded-lg px-4 py-2.5 text-sm font-bold shadow-sm transition-colors flex items-center justify-center"
+                className="bg-[#2D3A1F] hover:bg-[#2D3A1F]/90 text-[#F4F1E8] rounded-lg px-5 py-2.5 text-sm font-bold shadow-sm transition-colors flex items-center justify-center min-w-[70px]"
               >
                 Find
               </button>
@@ -317,7 +320,7 @@ export default function AocExplorerPage() {
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="bg-[#F4F1E8] hover:bg-[#E8E2D0] text-[#2D3A1F] border border-[#CDD2C9] rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors"
+                  className="bg-[#F4F1E8] hover:bg-[#E8E2D0] text-[#2D3A1F] border border-[#CDD2C9] rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors"
                 >
                   Clear
                 </button>

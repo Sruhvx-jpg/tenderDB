@@ -262,9 +262,9 @@ export default function TendersExplorerPage() {
       {/* Filter and Search Panel */}
       <div className="bg-[#E8E2D0] border border-[#CDD2C9] rounded-xl p-5 shadow-sm space-y-4">
         <form onSubmit={handleSearchSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div className="flex flex-col lg:flex-row gap-3 items-stretch lg:items-center">
             {/* Search Input */}
-            <div className="lg:col-span-5 relative">
+            <div className="flex-1 min-w-[240px] relative">
               <input
                 type="text"
                 placeholder="Search by keyword, title, tender ID, reference..."
@@ -276,10 +276,10 @@ export default function TendersExplorerPage() {
             </div>
 
             {/* Organisation Filter Input */}
-            <div className="lg:col-span-3 relative">
+            <div className="w-full lg:w-[220px] relative shrink-0">
               <input
                 type="text"
-                placeholder="Filter by issuing organisation..."
+                placeholder="Filter by organisation..."
                 value={orgInput}
                 onChange={(e) => setOrgInput(e.target.value)}
                 className="w-full bg-[#F4F1E8] border border-[#CDD2C9] rounded-lg pl-9 pr-4 py-2.5 text-sm text-[#2D3A1F] placeholder-[#2D3A1F]/50 focus:outline-none focus:border-[#B8A678] focus:ring-1 focus:ring-[#B8A678]/30 transition-all font-semibold"
@@ -288,7 +288,7 @@ export default function TendersExplorerPage() {
             </div>
 
             {/* Status Filter */}
-            <div className="lg:col-span-2">
+            <div className="w-full lg:w-[130px] shrink-0">
               <select
                 value={status}
                 onChange={(e) => {
@@ -304,16 +304,16 @@ export default function TendersExplorerPage() {
             </div>
 
             {/* Portal Type Filter */}
-            <div className="lg:col-span-2 flex gap-2">
+            <div className="w-full lg:w-[150px] flex gap-2 shrink-0">
               <select
                 value={portal}
                 onChange={(e) => {
                   setPortal(e.target.value);
                   setPage(1);
                 }}
-                className="flex-1 bg-[#F4F1E8] border border-[#CDD2C9] rounded-lg px-3 py-2.5 text-sm text-[#2D3A1F] focus:outline-none focus:border-[#B8A678] transition-all font-semibold"
+                className="flex-1 bg-[#F4F1E8] border border-[#CDD2C9] rounded-lg px-2.5 py-2.5 text-sm text-[#2D3A1F] focus:outline-none focus:border-[#B8A678] transition-all font-semibold"
               >
-                <option value="">All Portals</option>
+                <option value="">Portals</option>
                 <option value="org">org</option>
                 <option value="state">state</option>
               </select>
@@ -321,7 +321,7 @@ export default function TendersExplorerPage() {
               <button
                 type="button"
                 onClick={() => setShowAdvanced(!showAdvanced)}
-                className={`px-3 py-2.5 rounded-lg border text-sm font-semibold transition-all ${
+                className={`px-3 py-2.5 rounded-lg border text-sm font-semibold transition-all shrink-0 ${
                   showAdvanced || emdMin || emdMax || tenderType || tenderCategory
                     ? 'bg-[#B8A678]/20 border-[#B8A678] text-[#2D3A1F]' 
                     : 'bg-[#F4F1E8] border-[#CDD2C9] text-[#2D3A1F]/70'

@@ -38,14 +38,13 @@ export default function RootLayout({
         <EditorialOrganicElement
           style={{
             position: 'fixed',
-            right: '-100px',
-            bottom: '-40px',
-            top: 'auto',
-            width: '440px',
-            height: '440px',
-            opacity: 0.075,
+            left: 'calc(50% - 400px)',
+            top: 'calc(50% - 400px)',
+            width: '800px',
+            height: '800px',
+            opacity: 0.03,
             animation: 'botanicalFloat 32s ease-in-out infinite',
-            zIndex: 1,
+            zIndex: 0,
           }}
         />
         <header className="sticky top-0 z-40 w-full border-b border-[#D4CFC3] bg-[#FAF8F2]/85 backdrop-blur-md">
