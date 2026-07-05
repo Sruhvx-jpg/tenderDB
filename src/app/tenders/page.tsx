@@ -17,7 +17,8 @@ import {
   CheckCircle,
   Archive,
   Coins,
-  Settings2
+  Settings2,
+  Info
 } from 'lucide-react';
 import { EditorialDivider } from '@/components/SpecimenMark';
 
@@ -188,6 +189,15 @@ export default function TendersExplorerPage() {
             <BarChart4 className="h-4 w-4 text-[#C4AD6A]" />
             {showAnalytics ? "Hide Analytics" : "Show Analytics"}
           </button>
+        </div>
+      </div>
+
+      {/* Database Update Notice Banner */}
+      <div className="bg-[#EDE8DA]/60 border-l-4 border-[#B8A678] text-[#2D3A1F] p-4 rounded-r-lg shadow-sm flex items-start gap-3">
+        <Info className="h-5 w-5 text-[#B8A678] shrink-0 mt-0.5" />
+        <div>
+          <p className="text-xs font-bold uppercase tracking-wider text-[#2D3A1F]/80" style={{ fontFamily: "var(--font-fraunces)" }}>Database Status</p>
+          <p className="text-xs text-[#2D3A1F]/70 mt-0.5">Please note that the database is currently not up-to-date. We will be updating the data in the future.</p>
         </div>
       </div>
 
@@ -441,6 +451,9 @@ export default function TendersExplorerPage() {
           <div className="py-20 text-center text-[#2D3A1F]/80">
             <p className="font-bold text-lg" style={{ fontFamily: "var(--font-fraunces)" }}>No tenders found</p>
             <p className="text-sm text-[#2D3A1F]/60 mt-1">Try broadening your search keywords or resetting filters.</p>
+            <p className="text-xs text-[#2D3A1F]/50 mt-3 font-semibold bg-[#E8E2D0]/50 inline-block px-3 py-1.5 rounded-full border border-[#CDD2C9]/60">
+              If no tenders are found, please try reloading the website.
+            </p>
           </div>
         ) : (
           <div className="flex flex-col">

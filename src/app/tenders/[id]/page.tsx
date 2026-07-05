@@ -24,19 +24,28 @@ interface PageProps {
 export default async function TenderDetailPage({ params }: PageProps) {
   const { id } = await params;
 
-  const query = `
-    SELECT t.*, td.details_json, td.scraped_at as details_scraped_at
-    FROM tenders t
-    LEFT JOIN tender_details td ON t.internal_id = td.internal_id
-    WHERE t.internal_id = ?
-    LIMIT 1
-  `;
-
   let tender: any = null;
   try {
-    const rows = await runQuery(query, [id]);
-    if (rows && rows.length > 0) {
-      tender = rows[0];
+    const baseRows = await runQuery(
+      `SELECT * FROM tenders WHERE internal_id = ? LIMIT 1`,
+      [id]
+    );
+    if (baseRows && baseRows.length > 0) {
+      tender = baseRows[0];
+      
+      // Attempt to load details separately to avoid blocking on slow joins
+      try {
+        const detailsRows = await runQuery(
+          `SELECT details_json, scraped_at FROM tender_details WHERE internal_id = ? LIMIT 1`,
+          [id]
+        );
+        if (detailsRows && detailsRows.length > 0) {
+          tender.details_json = detailsRows[0].details_json;
+          tender.details_scraped_at = detailsRows[0].scraped_at;
+        }
+      } catch (detailsErr) {
+        console.warn('Failed to load tender details from details table:', detailsErr);
+      }
     }
   } catch (err) {
     console.error('Failed to load tender details:', err);

@@ -25,19 +25,28 @@ interface PageProps {
 export default async function AocDetailPage({ params }: PageProps) {
   const { id } = await params;
 
-  const query = `
-    SELECT a.*, ad.details_json, ad.scraped_at as details_scraped_at
-    FROM aoc_tenders a
-    LEFT JOIN aoc_details ad ON a.internal_id = ad.internal_id
-    WHERE a.internal_id = ?
-    LIMIT 1
-  `;
-
   let aoc: any = null;
   try {
-    const rows = await runQuery(query, [id]);
-    if (rows && rows.length > 0) {
-      aoc = rows[0];
+    const baseRows = await runQuery(
+      `SELECT * FROM aoc_tenders WHERE internal_id = ? LIMIT 1`,
+      [id]
+    );
+    if (baseRows && baseRows.length > 0) {
+      aoc = baseRows[0];
+      
+      // Attempt to load details separately to avoid blocking on slow joins
+      try {
+        const detailsRows = await runQuery(
+          `SELECT details_json, scraped_at FROM aoc_details WHERE internal_id = ? LIMIT 1`,
+          [id]
+        );
+        if (detailsRows && detailsRows.length > 0) {
+          aoc.details_json = detailsRows[0].details_json;
+          aoc.details_scraped_at = detailsRows[0].scraped_at;
+        }
+      } catch (detailsErr) {
+        console.warn('Failed to load AOC details from details table:', detailsErr);
+      }
     }
   } catch (err) {
     console.error('Failed to load AOC details:', err);

@@ -8,24 +8,33 @@ export async function GET(
   try {
     const { id } = await params;
     
-    const query = `
-      SELECT t.*, td.details_json, td.scraped_at as details_scraped_at
-      FROM tenders t
-      LEFT JOIN tender_details td ON t.internal_id = td.internal_id
-      WHERE t.internal_id = ?
-      LIMIT 1
-    `;
+    const baseRows = await runQuery(
+      `SELECT * FROM tenders WHERE internal_id = ? LIMIT 1`,
+      [id]
+    );
 
-    const rows = await runQuery(query, [id]);
-
-    if (rows.length === 0) {
+    if (baseRows.length === 0) {
       return NextResponse.json(
         { success: false, error: 'Tender not found' },
         { status: 404 }
       );
     }
 
-    const tender = rows[0];
+    const tender = baseRows[0];
+    
+    // Attempt to load details separately
+    try {
+      const detailsRows = await runQuery(
+        `SELECT details_json, scraped_at FROM tender_details WHERE internal_id = ? LIMIT 1`,
+        [id]
+      );
+      if (detailsRows && detailsRows.length > 0) {
+        tender.details_json = detailsRows[0].details_json;
+        tender.details_scraped_at = detailsRows[0].scraped_at;
+      }
+    } catch (detailsErr) {
+      console.warn('Failed to load tender details from details table:', detailsErr);
+    }
     
     // Attempt to parse details_json if present
     let parsedDetails = null;
